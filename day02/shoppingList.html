@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shopping List</title>
+</head>
+<body>
+  <h1>My shopping list</h1>
+  <div>
+    Enter a new item:
+    <input type="text" name="new-item" id="new-item">
+    <button id="add-item">Add item</button>
+  </div>
+  <ul id="list">
+    
+  </ul>
+  <script>
+    const addItem = document.querySelector('#add-item')
+    const list = document.querySelector('#list')
+    const input = document.querySelector('#new-item')
+    
+    addItem.addEventListener('click', () => {
+      if (input.value !== '') {
+        const inputValue = document.createElement('li')
+        const delbutton = document.createElement('button')
+        delbutton.innerText = 'delete'
+        inputValue.innerText = input.value + '     '
+        inputValue.appendChild(delbutton)
+        list.appendChild(inputValue)
+        input.value = ''
+
+        delbutton.addEventListener('click', () => {
+          inputValue.remove()
+        })
+      }
+      else {
+        alert('Please insert item')
+      }
+
+    })
+    const addItem2 = document.querySelector('#add-item')
+    document.addEventListener('keydown', event => {
+
+      if (event.code === 'Enter'){
+        if (input.value !== '') {
+          const inputValue = document.createElement('li')
+          const delbutton = document.createElement('button')
+          delbutton.innerText = 'delete'
+          inputValue.innerText = input.value + '     '
+          inputValue.appendChild(delbutton)
+          list.appendChild(inputValue)
+          input.value = ''
+
+          delbutton.addEventListener('click', () => {
+            inputValue.remove()
+          })
+        }
+        else {
+          alert('Please insert item')
+        }
+      }
+    })
+
+    
+
+  </script>
+</body>
+</html>

@@ -93,7 +93,10 @@
 
 - javascript 에서 undefined 는 값이 없음을 나타냄 => python 에서 None 과 동일
 
-  
+
+
+
+### 변수
 
 #### let
 
