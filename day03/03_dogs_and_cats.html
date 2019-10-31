@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Dogs and Cats</title>
+  <style>
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>댕댕이</h1>
+  <button id="get-dog-btn">댕댕이 랜덤 사진</button>
+  <button id="get-cat-btn">고양이 랜덤 사진</button>
+  <div class="animals"></div>
+  
+
+  <script>
+    const DOG_API_URL = 'https://dog.ceo/api/breeds/image/random'
+    const CAT_API_URL = 'https://api.thecatapi.com/v1/images/search'
+
+    const getDogButton = document.querySelector('#get-dog-btn')
+    const getCatButton = document.querySelector('#get-cat-btn')
+
+    const getDogImage = function() {
+      const animalsList = document.querySelector('div.animals')
+      if (animalsList.firstElementChild) {
+        animalsList.firstElementChild.remove()
+      }
+      // const response = axios.get(API_URL) => 비동기함수이기 때문에 동작을 하지 않는다.
+      // Axios 를 통해 댕댕이 사진을 달라는 요청을 보낸다.
+      axios.get(DOG_API_URL)
+      // 그리고, 요청이 도착하면 함수를 실행한다.
+      .then(function(response) {
+        // 응답받은 데이터에서 댕댕이 이미지의 url 을 꺼낸다.
+        const imageUrl = response.data.message
+
+        // 댕댕이 이미지를 화면에 표현하기 위한 이미지 태그를 생성한다.
+        const dogImage = document.createElement('img')
+
+
+        dogImage.src = imageUrl
+        dogImage.alt = 'dog'
+        // div.animals 안에 댕댕이 이미지 태그를 push 한다.
+        
+        animalsList.appendChild(dogImage)
+
+      })
+    }
+
+    // Axios 를 사용하여 CAT_API_URL 로 요청을 보내 고양이 사진을 호출한 뒤,
+    // div.animals 에 img 태그를 생성해서 push 하는 함수를 구현하세요
+    const getCatImage = function() {
+
+      const animalsList = document.querySelector('div.animals')
+      if (animalsList.firstElementChild) {
+        animalsList.firstElementChild.remove()
+      }
+      axios.get(CAT_API_URL)
+        .then(function(response) {
+          const imageUrl = response.data[0]["url"]
+
+          const catImage = document.createElement('img')
+
+          catImage.src = imageUrl
+          catImage.alt = 'cat'
+
+          animalsList.appendChild(catImage)
+        })
+
+    }
+    
+    getDogButton.addEventListener('click', () => {  
+      // 버튼이 클릭 될 때마다 강아지를 가져오겠다.
+      getDogImage()
+    })
+
+    getCatButton.addEventListener('click', () => {  
+      // 버튼이 클릭 될 때마다 강아지를 가져오겠다.
+      
+      getCatImage()
+
+      
+    })
+
+  </script>
+</body>
+</html>
