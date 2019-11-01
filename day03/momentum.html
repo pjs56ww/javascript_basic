@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <title>momentum</title>
+  <style>
+
+    html, body {
+        width: 100%;
+        height: 100%;
+        background-position: center; /* 중앙 */
+        background-repeat: no-repeat; /* 반복금지 */
+        background-attachment: fixed; /* 고정 */
+        background-size: cover;
+        margin: 0;
+        
+      }
+    h1 {
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      color: white;
+      font-size: 80px;
+    }
+  </style>
+</head>
+<body>
+  <div id='div1'>
+    <h1 id='time'></h1>
+  </div>
+  
+  <div>
+    <p>현재날씨는</p>
+    <p id='weather'></p>
+  </div>
+
+  <script>
+    // 1. Axios 로 image.url 을 가져온다.
+    const API_URL = 'https://source.unsplash.com/random/1920x1080/?nature'
+    const bgImage = document.createElement('img')
+
+    axios.get(API_URL)
+      .then(function(response) {
+        const body = document.querySelector('body')
+        body.background = response.request.responseURL
+        console.log(response.request.responseURL)
+      })
+    const getTime = function() {
+      newDate = new Date().toLocaleTimeString()
+
+      const bgTime = document.querySelector('#time')
+      bgTime.innerText = newDate
+    }
+
+    // const greetingText = function() {
+    //   newDate = new Date().toLocaleTimeString()
+    //   if (newDate.slice(0,3)) {
+    //   }
+    // }
+    function reloadTime() {  
+      setInterval(getTime, 1000); 
+    }
+    // function reloadTime() {  
+    //   setInterval(greetingText, 300000); 
+    // }
+
+    reloadTime()
+    
+    const WEATHER_API = 'http://api.openweathermap.org/data/2.5/weather?q=Seoul,KR&APPID=cb5b4ab8957d35f370cc1bdd030b1cca'
+    
+    axios.get(WEATHER_API)
+      .then(function(response) {
+        response.data.weather[0].main
+      })
+    
+  </script>
+</body>
+</html> 
